@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+{% set t = (title + " | " + site.name) if title else (site.name + " - " + site.tagline) %}
+<title>{{ t }}</title><meta name="description" content="{{ description or site.tagline }}">
+<link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{% set pimg = site.url + image if image else "" %}{% set cimg = site.url + cover if cover else "" %}{% if noindex %}<meta name="robots" content="noindex">{% endif %}
+<meta property="og:type" content="{{ 'article' if type == 'post' else 'website' }}"><meta property="og:title" content="{{ title or site.name }}"><meta property="og:description" content="{{ description or site.tagline }}"><meta property="og:url" content="{{ site.url }}{{ page.url }}">
+{% if image %}<meta property="og:image" content="{{ site.url }}{{ image }}"><meta name="twitter:card" content="summary_large_image">{% endif %}
+<link rel="stylesheet" href="/css/style.css"><meta name="theme-color" content="#0E4D5C">
+<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"WebSite","name":site.name,"url":site.url} | dump | safe }}</script>
+{% if type == "post" %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Article","headline":title,"description":description,"image":pimg,"datePublished":(page.date | iso),"dateModified":((updated or page.date) | iso),"author":{"@type":"Person","name":author or site.author},"mainEntityOfPage":site.url + page.url} | dump | safe }}</script>{% endif %}
+{% if type == "ebook" %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Product","name":title,"description":summary,"image":cimg,"offers":{"@type":"Offer","price":price,"priceCurrency":"NGN","availability":"https://schema.org/InStock","url":selar} } | dump | safe }}</script>{% endif %}
+{% if faq and faq.length %}{% set fe = [] %}{% for f in faq %}{% set fe = (fe.push({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a} }), fe) %}{% endfor %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"FAQPage","mainEntity":fe} | dump | safe }}</script>{% endif %}
+</head><body>
+<header><div class="wrap"><a class="logo" href="/">{{ site.name }}</a><nav aria-label="Main"><a href="/ebooks/">Ebooks</a><a href="/blog/">Blog</a><a href="/calculator/">Calculator</a><a href="/about/">About</a></nav></div></header>
+<main>{{ content | safe }}</main>
+<footer><div class="wrap"><p><a href="/ebooks/">Ebooks</a><a href="/blog/">Blog</a><a href="/calculator/">Calculator</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p><p class="muted" style="color:#9fb5b2">&copy; {{ site.name }}. Tips and figures are general guidance, not guaranteed results.</p></div></footer>
+<a class="wa" href="https://wa.me/{{ site.whatsapp }}" rel="noopener">Chat on WhatsApp</a>
+</body></html>

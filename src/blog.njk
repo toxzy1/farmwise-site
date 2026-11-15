@@ -1,0 +1,8 @@
+---
+layout: base.njk
+title: Farming blog
+description: Practical farming articles on crops, livestock, fish, organic farming and farm business.
+permalink: /blog/
+---
+<section><div class="wrap"><h1>Farming blog</h1><p class="tags">{% for c in categories %}<a href="/blog/category/{{ c.slug }}/">{{ c.name }}</a>{% endfor %}</p>
+{% if collections.posts.length %}<div class="grid">{% for p in collections.posts %}<a class="card" href="{{ p.url }}" style="text-decoration:none;color:inherit"><div class="b"><h3>{{ p.data.title }}</h3><span class="muted">{{ p.data.category }} &middot; {{ p.date | pretty }}</span><p>{{ p.data.description }}</p></div></a>{% endfor %}</div>{% else %}<p>No articles yet. New guides are coming soon.</p>{% endif %}</div></section>

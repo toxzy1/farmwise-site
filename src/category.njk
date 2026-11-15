@@ -1,0 +1,7 @@
+---
+layout: base.njk
+pagination: {data: categories, size: 1, alias: cat}
+permalink: /blog/category/{{ cat.slug }}/
+eleventyComputed: {title: "{{ cat.name }} articles", description: "Farming articles about {{ cat.name }}."}
+---
+<section><div class="wrap"><h1>{{ cat.name }}</h1><div class="grid">{% set n = 0 %}{% for p in collections.posts %}{% if p.data.category == cat.name %}{% set n = n + 1 %}<a class="card" href="{{ p.url }}" style="text-decoration:none;color:inherit"><div class="b"><h3>{{ p.data.title }}</h3><p>{{ p.data.description }}</p></div></a>{% endif %}{% endfor %}</div>{% if n == 0 %}<p>No articles in this category yet.</p>{% endif %}</div></section>

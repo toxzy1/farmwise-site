@@ -1,0 +1,1 @@
+{"layout":"ebook.njk","type":"ebook","permalink":"/ebooks/{{ page.fileSlug }}/"}

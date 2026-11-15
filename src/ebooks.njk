@@ -1,0 +1,7 @@
+---
+layout: base.njk
+title: Farming ebooks
+description: Step-by-step farming ebooks on hydroponic fodder, black soldier fly, cassava without herbicides, and oyster mushrooms.
+permalink: /ebooks/
+---
+<section><div class="wrap"><h1>Farming ebooks</h1><div class="grid">{% for e in collections.ebooks %}<a class="card" href="{{ e.url }}" style="text-decoration:none;color:inherit">{% if e.data.cover %}<img class="cover" src="{{ e.data.cover }}" alt="">{% else %}<div class="cover">{{ e.data.title }}</div>{% endif %}<div class="b"><h3>{{ e.data.title }}</h3><p class="muted">{{ e.data.summary }}</p><span class="price">&#8358;{{ e.data.price }}</span></div></a>{% endfor %}</div></div></section>

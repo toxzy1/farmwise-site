@@ -1,0 +1,10 @@
+---
+layout: base.njk
+---
+<article><p class="muted">{{ category }} &middot; {{ page.date | pretty }}{% if updated %} &middot; Updated {{ updated | pretty }}{% endif %}</p>
+<h1>{{ title }}</h1><p class="muted">By {{ author or site.author }}</p>
+{% if image %}<img src="{{ image }}" alt="{{ image_alt }}" width="720">{% endif %}
+{% if takeaways and takeaways.length %}<div class="take"><h2>Key takeaways</h2><ul>{% for k in takeaways %}<li>{{ k }}</li>{% endfor %}</ul></div>{% endif %}
+{{ content | safe }}
+{% if faq and faq.length %}<h2>Frequently asked questions</h2>{% for f in faq %}<details><summary>{{ f.q }}</summary><p>{{ f.a }}</p></details>{% endfor %}{% endif %}
+{% for e in collections.ebooks %}{% if e.fileSlug == ebook %}<div class="cta"><h2>Go deeper with the full guide</h2><p><b>{{ e.data.title }}</b>. {{ e.data.summary }}</p><a class="btn" href="{{ e.url }}">See the ebook</a></div>{% endif %}{% endfor %}</article>

@@ -1,0 +1,42 @@
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO
+  branch: main
+media_folder: src/uploads
+public_folder: /uploads
+collections:
+  - name: posts
+    label: Blog posts
+    folder: src/posts
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title (20-65 characters)", name: title, widget: string, pattern: ['^.{20,65}$', 'Use 20 to 65 characters']}
+      - {label: "Meta description (50-160 characters)", name: description, widget: text, pattern: ['^.{50,160}$', 'Use 50 to 160 characters']}
+      - {label: Publish date, name: date, widget: datetime}
+      - {label: Last updated, name: updated, widget: datetime, required: false}
+      - {label: Author, name: author, widget: string, default: Amoo Oluwatoyin Owolabi}
+      - {label: Category, name: category, widget: select, options: ["Crop Farming", "Livestock & Poultry", "Fish Farming", "Organic Farming & Fertilizers", "Farm Business & Marketing", "Agri Tech & Tools"]}
+      - {label: Featured image, name: image, widget: image}
+      - {label: Image ALT text, name: image_alt, widget: string}
+      - {label: Tags, name: tags, widget: list, default: [post]}
+      - {label: Ebook to promote at the end, name: ebook, widget: relation, collection: ebooks, search_fields: [title], value_field: "{{slug}}", display_fields: [title], required: false}
+      - {label: Key takeaways, name: takeaways, widget: list}
+      - {label: FAQ, name: faq, widget: list, fields: [{label: Question, name: q, widget: string}, {label: Answer, name: a, widget: text}]}
+      - {label: Body, name: body, widget: markdown}
+  - name: ebooks
+    label: Ebooks
+    folder: src/ebooks
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: Title, name: title, widget: string}
+      - {label: Display order, name: order, widget: number, default: 10}
+      - {label: Price (Naira), name: price, widget: number}
+      - {label: Selar link, name: selar, widget: string}
+      - {label: Cover image, name: cover, widget: image, required: false}
+      - {label: Short teaser summary, name: summary, widget: text}
+      - {label: Calculator items this ebook suits, name: for, widget: list, required: false}
+      - {label: Benefits, name: benefits, widget: list}
+      - {label: FAQ, name: faq, widget: list, required: false, fields: [{label: Question, name: q, widget: string}, {label: Answer, name: a, widget: text}]}
+      - {label: Teaser text, name: body, widget: markdown}
