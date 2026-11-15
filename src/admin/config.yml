@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: YOUR-GITHUB-USERNAME/YOUR-REPO
+  repo: toxzy1/farmwise-site
   branch: main
 media_folder: src/uploads
 public_folder: /uploads
