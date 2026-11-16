@@ -1,0 +1,15 @@
+---
+layout: base.njk
+pagination: {data: pages, size: 1, alias: p}
+permalink: "{{ p.prefix }}/tools/livestock-feed-calculator/{{ p.slug }}/"
+tool: livestock-feed-calculator
+eleventyComputed:
+  lang: "{{ p.lang }}"
+  title: "{{ i18n[p.lang].feedH | replace('{c}', p.name) }}"
+  description: "{{ i18n[p.lang].feedD | replace('{c}', p.name) }}"
+---
+{% set T = i18n[p.lang] %}
+<div class="hero"><div class="wrap"><p class="eyebrow">{{ T.eyebrow }}</p><h1>{{ T.feedH | replace('{c}', p.name) }}</h1><p>{{ T.feedL }}</p></div></div>
+<section><div class="wrap"><div class="calc" id="app" style="max-width:640px"></div><div id="out"></div><p class="muted">{{ T.disc }}</p><div id="cta"></div></div></section>
+<section><div class="wrap"><p><a class="btn" href="{{ p.prefix }}/tools/crop-input-calculator/{{ p.slug }}/">{{ T.cropT }}: {{ p.name }}</a></p><h2>{{ T.other }}</h2><ul class="ctry">{% for q in pages %}{% if q.lang == p.lang %}<li><a href="{{ q.prefix }}/tools/livestock-feed-calculator/{{ q.slug }}/">{{ q.name }}</a></li>{% endif %}{% endfor %}</ul></div></section>
+<script>window.T={{ T | dump | safe }};window.CFG={sym:"{{ p.sym }}",lang:"{{ p.lang }}"};</script><script src="/js/feed.js" defer></script>

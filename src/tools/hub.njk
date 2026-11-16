@@ -1,0 +1,13 @@
+---
+layout: base.njk
+hub: true
+pagination: {data: langs, size: 1, alias: l}
+permalink: "{{ l.prefix }}/tools/"
+eleventyComputed:
+  lang: "{{ l.code }}"
+  title: "{{ i18n[l.code].hubH }}"
+  description: "{{ i18n[l.code].hubD }}"
+---
+{% set T = i18n[l.code] %}
+<div class="hero"><div class="wrap"><p class="eyebrow">{{ T.eyebrow }}</p><h1>{{ T.hubH }}</h1><p>{{ T.hubD }}</p></div></div>
+<section><div class="wrap"><h2>{{ T.pick }}</h2><ul class="ctry">{% for q in pages %}{% if q.lang == l.code %}<li><b>{{ q.name }}</b><br><a href="{{ q.prefix }}/tools/livestock-feed-calculator/{{ q.slug }}/">{{ T.feedT }}</a><br><a href="{{ q.prefix }}/tools/crop-input-calculator/{{ q.slug }}/">{{ T.cropT }}</a></li>{% endif %}{% endfor %}</ul></div></section>

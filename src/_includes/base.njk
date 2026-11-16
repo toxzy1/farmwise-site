@@ -1,18 +1,22 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+{% set cur = lang or "en" %}{% set T = i18n[cur] %}{% set pre = "" if cur == "en" else "/" + cur %}{% set tail = (tool + "/" + p.slug + "/") if tool else "" %}{% set home = "/" if cur == "en" else pre + "/tools/" %}
+<!doctype html><html lang="{{ cur }}" dir="{{ 'rtl' if cur == 'ar' else 'ltr' }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 {% set t = (title + " | " + site.name) if title else (site.name + " - " + site.tagline) %}
 <title>{{ t }}</title><meta name="description" content="{{ description or site.tagline }}">
 <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+{% if tool or hub %}{% for l in langs %}<link rel="alternate" hreflang="{{ l.code }}" href="{{ site.url }}{{ l.prefix }}/tools/{{ tail }}">{% endfor %}<link rel="alternate" hreflang="x-default" href="{{ site.url }}/tools/{{ tail }}">{% endif %}
 {% set pimg = site.url + image if image else "" %}{% set cimg = site.url + cover if cover else "" %}{% if noindex %}<meta name="robots" content="noindex">{% endif %}
-<meta property="og:type" content="{{ 'article' if type == 'post' else 'website' }}"><meta property="og:title" content="{{ title or site.name }}"><meta property="og:description" content="{{ description or site.tagline }}"><meta property="og:url" content="{{ site.url }}{{ page.url }}">
+<meta property="og:type" content="{{ 'article' if type == 'post' else 'website' }}"><meta property="og:title" content="{{ title or site.name }}"><meta property="og:description" content="{{ description or site.tagline }}"><meta property="og:url" content="{{ site.url }}{{ page.url }}"><meta property="og:locale" content="{{ cur }}">
 {% if image %}<meta property="og:image" content="{{ site.url }}{{ image }}"><meta name="twitter:card" content="summary_large_image">{% endif %}
-<link rel="stylesheet" href="/css/style.css"><meta name="theme-color" content="#0E4D5C">
+<link rel="icon" href="/images/brand-mark.svg" type="image/svg+xml"><link rel="stylesheet" href="/css/style.css"><meta name="theme-color" content="#1F3A2E">
 <script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"WebSite","name":site.name,"url":site.url} | dump | safe }}</script>
+{% if tool %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"WebApplication","name":title,"description":description,"applicationCategory":"UtilitiesApplication","operatingSystem":"Any","inLanguage":cur,"url":site.url + page.url,"offers":{"@type":"Offer","price":0,"priceCurrency":"USD"} } | dump | safe }}</script>{% endif %}
 {% if type == "post" %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Article","headline":title,"description":description,"image":pimg,"datePublished":(page.date | iso),"dateModified":((updated or page.date) | iso),"author":{"@type":"Person","name":author or site.author},"mainEntityOfPage":site.url + page.url} | dump | safe }}</script>{% endif %}
 {% if type == "ebook" %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"Product","name":title,"description":summary,"image":cimg,"offers":{"@type":"Offer","price":price,"priceCurrency":"NGN","availability":"https://schema.org/InStock","url":selar} } | dump | safe }}</script>{% endif %}
 {% if faq and faq.length %}{% set fe = [] %}{% for f in faq %}{% set fe = (fe.push({"@type":"Question","name":f.q,"acceptedAnswer":{"@type":"Answer","text":f.a} }), fe) %}{% endfor %}<script type="application/ld+json">{{ {"@context":"https://schema.org","@type":"FAQPage","mainEntity":fe} | dump | safe }}</script>{% endif %}
 </head><body>
-<header><div class="wrap"><a class="logo" href="/">{{ site.name }}</a><nav aria-label="Main"><a href="/ebooks/">Ebooks</a><a href="/blog/">Blog</a><a href="/calculator/">Calculator</a><a href="/about/">About</a></nav></div></header>
+<div class="langbar"><div class="wrap"><label for="lang">{{ T.lang }}</label><select id="lang" aria-label="{{ T.lang }}" onchange="location.href=this.value">{% for l in langs %}<option value="{{ (('/tools/' + tail) if (tool or hub) else page.url) if l.code == 'en' else (l.prefix + '/tools/' + tail) }}"{% if l.code == cur %} selected{% endif %}>{{ l.name }}</option>{% endfor %}</select></div></div>
+<header><div class="wrap"><a class="logo" href="{{ home }}"><img src="/images/brand-mark.svg" alt="" width="36" height="36">{{ site.name }}</a><nav aria-label="Main">{% if cur == "en" %}<a href="/">{{ T.h }}</a><a href="/tools/">{{ T.tools }}</a><a href="/ebooks/">eBooks</a><a href="/blog/">Blog</a><a href="/about/">About</a>{% else %}<a href="{{ pre }}/tools/">{{ T.tools }}</a><a href="/ebooks/">{{ T.ebooks }}</a>{% endif %}</nav></div></header>
 <main>{{ content | safe }}</main>
-<footer><div class="wrap"><p><a href="/ebooks/">Ebooks</a><a href="/blog/">Blog</a><a href="/calculator/">Calculator</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p><p class="muted" style="color:#9fb5b2">&copy; {{ site.name }}. Tips and figures are general guidance, not guaranteed results.</p></div></footer>
-<a class="wa" href="https://wa.me/{{ site.whatsapp }}" rel="noopener">Chat on WhatsApp</a>
+<footer><div class="wrap">{% if cur == "en" %}<p><a href="/tools/">Tools</a><a href="/ebooks/">eBooks</a><a href="/blog/">Blog</a><a href="/about/">About</a><a href="/contact/">Contact</a><a href="/privacy/">Privacy</a></p>{% endif %}<p class="muted" style="color:#b7c5ba">&copy; {{ site.name }}. {{ T.disc }}</p></div></footer>
+<a class="wa" href="https://wa.me/{{ site.whatsapp }}" rel="noopener">WhatsApp</a>
 </body></html>
