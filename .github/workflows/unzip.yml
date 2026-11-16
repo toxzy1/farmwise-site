@@ -1,7 +1,8 @@
 name: Unzip site
 on:
   push:
-    paths: ['farmwise-site.zip']
+    paths: ['*.zip']
+  workflow_dispatch:
 permissions:
   contents: write
 jobs:
@@ -10,9 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          [ -f farmwise-site.zip ] || exit 0
-          unzip -o farmwise-site.zip
-          rm -f farmwise-site.zip farmwise-preview.zip
+          ls *.zip >/dev/null 2>&1 || exit 0
+          for z in *.zip; do unzip -o "$z"; rm -f "$z"; done
           rm -rf __MACOSX
           git config user.name "github-actions"
           git config user.email "actions@github.com"
