@@ -1,0 +1,16 @@
+---
+layout: base.njk
+pagination: {data: langs, size: 1, alias: p}
+permalink: "{{ p.prefix }}/tools/crop-calendar/"
+tool: crop-calendar
+eleventyComputed:
+  lang: "{{ p.code }}"
+  title: "{{ i18n[p.code].ccH }}"
+  description: "{{ i18n[p.code].ccD }}"
+---
+{% set T = i18n[p.code] %}{% set kind = "crop" %}
+<div class="hero"><div class="wrap"><p class="eyebrow">{{ T.eyebrow }}</p><h1>{{ T.ccH }}</h1><p>{{ T.ccL }}</p></div></div>
+<section><div class="wrap"><div class="calc" id="app" style="max-width:640px"></div><div id="out"></div><p class="muted">{{ T.disc }}</p></div></section>
+{% include "promo.njk" %}
+<section><div class="wrap">{% include "toolsbar.njk" %}</div></section>
+<script>window.T={{ T | dump | safe }};window.CFG={lang:"{{ p.code }}"};</script><script src="/js/cropcal.js" defer></script>

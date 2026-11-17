@@ -10,4 +10,4 @@ eleventyComputed:
 ---
 {% set T = i18n[l.code] %}
 <div class="hero"><div class="wrap"><p class="eyebrow">{{ T.eyebrow }}</p><h1>{{ T.hubH }}</h1><p>{{ T.hubD }}</p></div></div>
-<section><div class="wrap"><h2>{{ T.pick }}</h2><ul class="ctry">{% for q in pages %}{% if q.lang == l.code %}<li><b>{{ q.name }}</b><br><a href="{{ q.prefix }}/tools/livestock-feed-calculator/{{ q.slug }}/">{{ T.feedT }}</a><br><a href="{{ q.prefix }}/tools/crop-input-calculator/{{ q.slug }}/">{{ T.cropT }}</a></li>{% endif %}{% endfor %}</ul></div></section>
+<section><div class="wrap"><h2>{{ T.pick }}</h2><ul class="ctry">{% for q in pages %}{% if q.lang == l.code %}<li><b>{{ q.name }}</b><br><a href="{{ q.prefix }}/tools/livestock-feed-calculator/{{ q.slug }}/">{{ T.feedT }}</a><br><a href="{{ q.prefix }}/tools/crop-input-calculator/{{ q.slug }}/">{{ T.cropT }}</a></li>{% endif %}{% endfor %}</ul><p><a class="btn" href="{{ l.prefix }}/tools/health-calendar/">{{ T.hcT }}</a> <a class="btn" href="{{ l.prefix }}/tools/crop-calendar/">{{ T.ccT }}</a> <a class="btn" href="{{ l.prefix }}/tools/farm-diary/">{{ T.dT }}</a></p></div></section>

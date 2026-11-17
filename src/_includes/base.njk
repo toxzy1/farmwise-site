@@ -1,4 +1,4 @@
-{% set cur = lang or "en" %}{% set T = i18n[cur] %}{% set pre = "" if cur == "en" else "/" + cur %}{% set tail = (tool + "/" + p.slug + "/") if tool else "" %}{% set home = "/" if cur == "en" else pre + "/tools/" %}
+{% set cur = lang or "en" %}{% set T = i18n[cur] %}{% set pre = "" if cur == "en" else "/" + cur %}{% set tail = (tool + "/" + ((p.slug + "/") if p.slug else "")) if tool else "" %}{% set home = "/" if cur == "en" else pre + "/tools/" %}
 <!doctype html><html lang="{{ cur }}" dir="{{ 'rtl' if cur == 'ar' else 'ltr' }}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 {% set t = (title + " | " + site.name) if title else (site.name + " - " + site.tagline) %}
 <title>{{ t }}</title><meta name="description" content="{{ description or site.tagline }}">
